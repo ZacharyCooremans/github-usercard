@@ -9,8 +9,8 @@ axios
 .then()
 .catch()
 
-const test = axios.get('https://api.github.com/users/ZacharyCooremans');
-console.log(test)
+const obj = axios.get('https://api.github.com/users/ZacharyCooremans');
+console.log(obj)
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -23,7 +23,22 @@ console.log(test)
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-
+const stuff = items
+axios
+.get("https://api.github.com/users/ZacharyCooremans")
+.then((res) => {
+  console.log('RESPONSE: \n \n', res)
+  console.log('res.data: \n \n', res.data)
+  const items = res.data;
+  const items = stuff
+  //console.log('THIS IS ITEM', items)
+  // cardsPoint.append(items)
+  
+})
+.catch((err) => {
+  //debugger;
+})
+console.log('THIS IS STUFF', stuff)
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -36,7 +51,7 @@ console.log(test)
 */
 
 const followersArray = [];
-
+const cardsPoint = document.querySelector('.cards')
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -78,12 +93,12 @@ function cardMaker (obj) {
   pUser.classList = 'username';
   //pProfile
   img.src = obj['avatar_url'];
-  pUser = obj['login']
-  pLocation = obj['location']
-  a = obj['url']
-  pFollowers = obj['followers']
-  pFollowing = obj['following']
-  pBio = obj['bio']
+  pUser.textContent = obj['login']
+  pLocation.textContent = obj['location']
+  a.textContent = obj['url']
+  pFollowers.textContent = obj['followers']
+  pFollowing.textContent = obj['following']
+  pBio.textContent = obj['bio']
 
   // setting hierarchy
   card.appendChild(img);
@@ -99,7 +114,9 @@ function cardMaker (obj) {
 
   return card
 }
-console.log(cardMaker)
+//cardsPoint.append(items)
+//console.log('This is object', stuff)
+console.log(cardMaker(items))
 
 /*
   List of LS Instructors Github username's:
