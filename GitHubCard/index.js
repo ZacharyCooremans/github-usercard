@@ -8,6 +8,11 @@ axios
 .get("https://api.github.com/users/ZacharyCooremans")
 .then()
 .catch()
+const followersArray = ["tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"];
 
 const obj = axios.get('https://api.github.com/users/ZacharyCooremans');
 console.log(obj)
@@ -23,22 +28,32 @@ console.log(obj)
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-const stuff = items
+followersArray.forEach(person =>{
+  axios.get(`https://api.github.com/users/${person}`)
+  .then((res) =>{
+    console.log(res)
+    cardsPoint.append(cardMaker(res.data))
+  })
+  .catch((err) =>{
+    console.log(err)
+  })
+});
 axios
 .get("https://api.github.com/users/ZacharyCooremans")
 .then((res) => {
   console.log('RESPONSE: \n \n', res)
   console.log('res.data: \n \n', res.data)
   const items = res.data;
-  const items = stuff
+  const stuff = cardMaker(items)
+  cardsPoint.append(stuff)
+  
   //console.log('THIS IS ITEM', items)
-  // cardsPoint.append(items)
   
 })
 .catch((err) => {
   //debugger;
 })
-console.log('THIS IS STUFF', stuff)
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -50,7 +65,12 @@ console.log('THIS IS STUFF', stuff)
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+// const followersArray = ["tetondan",
+//   "dustinmyers",
+//   "justsml",
+//   "luishrd",
+//   "bigknell"];
+
 const cardsPoint = document.querySelector('.cards')
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -93,12 +113,14 @@ function cardMaker (obj) {
   pUser.classList = 'username';
   //pProfile
   img.src = obj['avatar_url'];
-  pUser.textContent = obj['login']
-  pLocation.textContent = obj['location']
-  a.textContent = obj['url']
-  pFollowers.textContent = obj['followers']
-  pFollowing.textContent = obj['following']
-  pBio.textContent = obj['bio']
+  h3.textContent = obj['login'];
+  pUser.textContent = `HIIIII ${obj['name']}`;
+  pLocation.textContent = `Location ${obj['location']}`;
+  pProfile.textContent = 'Profile ';
+  a.textContent = obj['url'];
+  pFollowers.textContent = `Followers ${obj['followers']}`;
+  pFollowing.textContent = `Following ${obj['following']}`;
+  pBio.textContent = `Bio ${obj['bio']}`;
 
   // setting hierarchy
   card.appendChild(img);
@@ -108,15 +130,15 @@ function cardMaker (obj) {
   cardInfo.appendChild(pLocation);
   cardInfo.appendChild(pProfile);
   pProfile.appendChild(a);
-  cardInfo.appendChild(pFollowing);
+  cardInfo.appendChild(pFollowers);
   cardInfo.appendChild(pFollowing);
   cardInfo.appendChild(pBio);
 
   return card
 }
-//cardsPoint.append(items)
+//cardsPoint.append(cardMaker(obj))
 //console.log('This is object', stuff)
-console.log(cardMaker(items))
+//console.log(cardMaker(items))
 
 /*
   List of LS Instructors Github username's:
