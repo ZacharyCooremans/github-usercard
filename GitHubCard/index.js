@@ -112,14 +112,14 @@ function cardMaker (obj) {
   h3.classList = 'name';
   pUser.classList = 'username';
   a.setAttribute ('href', obj['html_url']);
-  a.innerHTML = obj['html_obj'];
+  //a.innerHTML = obj['html_obj'];
   //pProfile
   img.src = obj['avatar_url'];
   h3.textContent = obj['login'];
   pUser.textContent = `HIIIII ${obj['name']}`;
   pLocation.textContent = `Location ${obj['location']}`;
   pProfile.textContent = 'Profile ';
-  a.textContent = obj['html_url']
+  a.textContent = obj['html_url'];
   pFollowers.textContent = `Followers ${obj['followers']}`;
   pFollowing.textContent = `Following ${obj['following']}`;
   pBio.textContent = `Bio ${obj['bio']}`;
